@@ -11264,8 +11264,10 @@ form.user .btn-user {
 footer.sticky-footer {
   padding: 2rem 0;
   flex-shrink: 0;
-  position: fixed:
-  bottom:0
+  position: fixed;
+  bottom: 0;
+  width: calc(100% - 14rem);
+
 }
 
 footer.sticky-footer .copyright {

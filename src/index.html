@@ -117,8 +117,7 @@
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-center mb-4">
 <!--                        TODO: FOLDER NAME HERE-->
-                        <h1 class="h3 mb-0 text-gray-800">MEME</h1>
-
+                        <h1 class="h3 mb-0 text-gray-800" >SOUNDS</h1>
                     </div>
 
                     {% for directory in directories %}
@@ -126,9 +125,9 @@
                       {% for sound in directory.get_sounds() %}
                         <div class="col-xl col-md-3 mb-4">
                             <div class="card shadow">
-                                <div  class="card-body" onclick="vzp('{{sound.get_id()}}');">
+                                <div  class="card-body" onclick="vzp('{{ sound.get_id() }}');">
                                     <div class="row no-gutters align-items-center">
-                                        <div class="h8 mb-0 font-weight-bold text-gray-800">{{sound.get_name()}}</div>
+                                        <div class="h8 mb-0 font-weight-bold text-gray-800">{{ sound.get_name() }}</div>
                                     </div>
                                 </div>
                             </div>

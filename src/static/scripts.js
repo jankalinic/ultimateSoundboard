@@ -8,13 +8,25 @@ function pastebin(){
       console.error('Async: Could not copy text: ', err);
     });
 }
+
 //create folder
 var createfolder_form = document.getElementById("createfolder");
 document.getElementById("submitfolder").addEventListener("click", function () {
   createfolder_form.submit();
 });
+
 //search
 var search_form = document.getElementById("search_form");
 document.getElementById("submitsearch").addEventListener("click", function () {
   search_form.submit();
 });
+
+// player
+function vzp(path) {
+    $.ajax({
+      url: "/vzp-send.py",
+      type: "POST",
+      data: path,
+      dataType: "text"
+    });
+}
