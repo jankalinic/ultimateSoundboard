@@ -1306,9 +1306,10 @@ pre code {
 
 @media (min-width: 1200px) {
   .col-xl {
-    flex-basis: 0;
+    flex-basis: 15%;
     flex-grow: 1;
     max-width: 100%;
+
   }
   .row-cols-xl-1 > * {
     flex: 0 0 100%;
@@ -4476,6 +4477,8 @@ input[type="button"].btn-block {
   display: flex;
   flex-direction: column;
   min-width: 0;
+  height: 100%;
+  width: 100%;
   word-wrap: break-word;
   background-color: #fff;
   background-clip: border-box;
@@ -9788,9 +9791,10 @@ a:focus {
 }
 
 #wrapper #content-wrapper {
-  background-color: #f8f9fc;
-  width: 100%;
-  overflow-x: hidden;
+    background-color: #f8f9fc;
+    width: calc(100% - 14rem);
+    overflow-x: hidden;
+    margin-left: 14rem;
 }
 
 #wrapper #content-wrapper #content {
@@ -11260,6 +11264,8 @@ form.user .btn-user {
 footer.sticky-footer {
   padding: 2rem 0;
   flex-shrink: 0;
+  position: fixed:
+  bottom:0
 }
 
 footer.sticky-footer .copyright {
@@ -11269,4 +11275,8 @@ footer.sticky-footer .copyright {
 
 body.sidebar-toggled footer.sticky-footer {
   width: 100%;
+}
+
+#accordionSidebar{
+  position: fixed;
 }

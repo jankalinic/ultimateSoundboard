@@ -15,15 +15,14 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,400,600,800" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="{{ style_css }}">
+    <style>{{ hidden_styles }}</style>
     <!-- Custom styles for this template-->
 <!--    TODO: REPLACE-->
-    <link href="{{ style_css }}" rel="stylesheet">
 
 </head>
 
 <body id="page-top">
-    <h1>{{ m }}</h1>
     <!-- Page Wrapper -->
     <div id="wrapper">
 
@@ -46,19 +45,13 @@
             <!-- Nav Item - Pages Collapse Menu -->
 
             <!-- TODO: INSERT LOOP FOLDERS -->
-
-            <li class="nav-item">
-                <a class="nav-link" href="">
-                    <span>MEME</span>
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" href="">
-                    <span>TRENER</span>
-                </a>
-            </li>
-
+            {% for directory in directories %}
+                <li class="nav-item">
+                    <a class="nav-link" href="#{{directory.get_id()}}">
+                        <span>{{ directory.get_name() }}</span>
+                    </a>
+                </li>
+            {% endfor %}
 
         </ul>
         <!-- End of Sidebar -->
@@ -127,72 +120,36 @@
                         <h1 class="h3 mb-0 text-gray-800">MEME</h1>
 
                     </div>
-<!--                    TODO: MP3 HERE-->
+
+                    {% for directory in directories %}
+                    <div class="row dir_hide" id="{{directory.get_id()}}">
+                      {% for sound in directory.get_sounds() %}
+                        <div class="col-xl col-md-3 mb-4">
+                            <div class="card shadow">
+                                <div  class="card-body" onclick="vzp('{{sound.get_id()}}');">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="h8 mb-0 font-weight-bold text-gray-800">{{sound.get_name()}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                      {% endfor %}
+                    </div>
+                    {% endfor %}
                     <!-- Content Row -->
+
                     <div class="row">
-                        <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl col-md-3 mb-4">
-                            <div class="card border-left-success shadow">
-                                <div id="t1" class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="h8 mb-0 font-weight-bold text-gray-800">NAME</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl col-md-3 mb-4">
-                            <div class="card border-left-success shadow">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="h8 mb-0 font-weight-bold text-gray-800">NAME</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl col-md-3 mb-4">
-                            <div class="card border-left-success shadow">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="h8 mb-0 font-weight-bold text-gray-800">NAME</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl col-md-3 mb-4">
-                            <div class="card border-left-success shadow">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="h8 mb-0 font-weight-bold text-gray-800">NAME</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl col-md-3 mb-4">
-                            <div class="card border-left-success shadow">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="h8 mb-0 font-weight-bold text-gray-800">NAME</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl col-md-3 mb-4">
-                            <div class="card border-left-success shadow">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="h8 mb-0 font-weight-bold text-gray-800">NAME</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+
 
                     </div>
+                </div>
+                <!-- /.container-fluid -->
+            </div>
+            <!-- End of Main Content -->
 
-                    <!-- Content Row -->
-
-                    <div class="row">
-
-                        <!-- Area Chart -->
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                 <!-- Area Chart -->
                         <div class="col-xl-12 col-lg-12">
                             <div class="card shadow mb-4">
                                 <!-- Card Header - Dropdown -->
@@ -219,14 +176,6 @@
                                 </form>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <!-- /.container-fluid -->
-            </div>
-            <!-- End of Main Content -->
-
-            <!-- Footer -->
-            <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
                         <span>Copyright Lou Briccant & Anna Bortion</span>
