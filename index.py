@@ -2,7 +2,7 @@ import os
 import subprocess
 
 from jinja2 import Environment, FileSystemLoader
-from flask import Flask, render_template, redirect, request, url_for, flash, jsonify
+from flask import Flask, render_template, redirect, request, url_for
 from Sounds import Sound, SoundDirectory
 
 
@@ -46,21 +46,13 @@ def name(cur_name):
 @app.route('/play_sound', methods=['POST', 'GET'])
 def play_sound():
     os.system("vzp-sender {}".format(request.form.get("sound_file")))
-#     mp3_file = request.form.get("sound_file")
-#
-#     if os.path.exists(os.path.join(UPLOAD_FOLDER, mp3_file)):
-#         os.system("vzp-sender {0}".format(mp3_file))
-#
-#     return jsonify("Playing {0}".format(mp3_file))
 
 
 @app.route('/stop_sound')
 def stop_sound():
     # kill queue
-    os.system("for pid in $(ps -ef | awk '/vzp-sender/ {print $2}'); do kill -9 $pid; done")
-    # start proceses
-    os.system("vzp-sender ")
-    return jsonify("Stoping queue")
+    os.system("for pid in $(ps -ef | awk '/vzp-sender.py/ {print $2}'); do kill -9 $pid; done")
+    os.system("for pid in $(ps -ef | awk '/vzp-send/ {print $2}'); do kill -9 $pid; done")
 
 
 @app.route('/volume/<opt_volume>', methods=['POST', 'GET'])
@@ -69,10 +61,6 @@ def opt_volume(opt_volume):
         os.system("")
     elif opt_volume == "down":
         os.system("")
-    else:
-        return jsonify("Failed")
-
-    return jsonify("Volume")
 
 
 @app.route('/normalize', methods=['POST', 'GET'])

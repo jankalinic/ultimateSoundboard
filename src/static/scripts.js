@@ -25,12 +25,6 @@ function play_sound(path) {
       url: "/play_sound",
       type: "POST",
       data: {sound_file:path},
-      dataType: "text",
-      success: function(data){
-        console.log(data)
-      },
-      error: function(data){
-        console.log(data)
-      }
+      dataType: "text"
     });
 }
