@@ -46,36 +46,49 @@ def name(cur_name):
 @app.route('/play_sound', methods=['POST', 'GET'])
 def play_sound():
     os.system("vzp-sender {}".format(request.form.get("sound_file")))
+    return "Playing"
 
 
-@app.route('/stop_sound')
+@app.route('/stop_sound', methods=['POST', 'GET'])
 def stop_sound():
     # kill queue
     os.system("for pid in $(ps -ef | awk '/vzp-sender.py/ {print $2}'); do kill -9 $pid; done")
     os.system("for pid in $(ps -ef | awk '/vzp-send/ {print $2}'); do kill -9 $pid; done")
+    return "Stopped"
 
 
-@app.route('/volume/<opt_volume>', methods=['POST', 'GET'])
-def opt_volume(opt_volume):
-    if opt_volume == "up":
-        os.system("")
-    elif opt_volume == "down":
-        os.system("")
+@app.route('/set_volume', methods=['POST', 'GET'])
+def set_volume():
+    opt_vol = request.form.get("volume")
+    if opt_vol == "up":
+        os.system("amixer set Master 10%+")
+    elif opt_vol == "down":
+        os.system("amixer set Master 10%-")
+    return "Volume"
 
 
 @app.route('/normalize', methods=['POST', 'GET'])
 def normalize():
-    # subprocess.run("mp3gain -r *.mp3")
-    return redirect("/")
+    os.system("mp3gain -r {0}/*/*.mp3".format(os.path.join(root_directory, UPLOAD_FOLDER)))
+    return redirect(url_for('index'))
 
 
 @app.route('/upload', methods=['POST'])
 def upload_file():
     if request.method == 'POST':
         f = request.files['file']
-        f.save(os.path.join(root_directory, request.form.get("folder"), f.filename))
+        f.save(os.path.join(root_directory, UPLOAD_FOLDER, request.form.get("folder"), f.filename))
 
-    return redirect("/")
+    return redirect(url_for('index'))
+
+
+@app.route('/create_folder', methods=['POST'])
+def create_folder():
+    folder_path = os.path.join(root_directory, UPLOAD_FOLDER, request.form.get("folder_name"))
+    if not os.path.exists(folder_path):
+        os.system("mkdir " + folder_path)
+
+    return redirect(url_for('index'))
 
 
 def load():

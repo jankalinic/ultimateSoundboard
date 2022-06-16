@@ -28,3 +28,26 @@ function play_sound(path) {
       dataType: "text"
     });
 }
+
+function stop_sound() {
+    $.ajax({
+      url: "/stop_sound",
+      type: "POST",
+      data: "",
+      dataType: "text",
+      success: function(data){
+        console.log(data);
+      }
+    });
+}
+function set_volume(volume_choice) {
+    $.ajax({
+      url: "/set_volume",
+      type: "POST",
+      data: {volume:volume_choice},
+      dataType: "text",
+      success: function(data){
+        console.log(data);
+      }
+    });
+}
