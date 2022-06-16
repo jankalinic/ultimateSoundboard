@@ -45,7 +45,7 @@ def name(cur_name):
 
 @app.route('/play_sound', methods=['POST', 'GET'])
 def play_sound():
-    os.system("vzp-sender" + request.form.get("sound_file"))
+    os.system("vzp-sender {}".format(request.form.get("sound_file")))
 #     mp3_file = request.form.get("sound_file")
 #
 #     if os.path.exists(os.path.join(UPLOAD_FOLDER, mp3_file)):
