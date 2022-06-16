@@ -69,14 +69,12 @@
                     </button>
 
                     <!-- Topbar Search -->
-                    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" id="search_form">
+                    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" id="tts" action="/read" method="post">
                         <div class="input-group">
-                            <a href="#" onclick="find('ani');">Find in This Page...</a>
-                            <input type="text" id="search_name" class="form-control bg-light border-0 small" placeholder="Search for..." name="search_name">
-                            <div class="input-group-append" id="submitsearch">
-                                <button class="btn btn-primary" type="button" >
-
-                                    <i class="fas fa-search fa-sm"></i>
+                            <input type="text" class="form-control bg-light border-0 small" placeholder="Text to speech..." name="text">
+                            <div class="input-group-append" id="submittts">
+                                <button class="btn btn-primary" type="button">
+                                    <i class="fa-brands fa-speakap" "></i>
                                 </button>
                             </div>
                         </div>
@@ -111,30 +109,33 @@
                 </nav>
                 <!-- End of Topbar -->
 
-                <!-- Begin Page Content -->
-                <div class="container-fluid conxf">
+<!-- Begin Page Content -->
 
-                    <!-- Page Heading -->
-                    <div class="py-4 d-sm-flex align-items-center justify-content-center mb-4">
-                        <h1 class="h3 mb-0 text-gray-800" >{{ cur_dir.get_name() }}</h1>
-                    </div>
-                    <div class="card-columns">
-                        {% for sound in cur_dir.get_sounds() %}
-                        <a>
-                            <div class="col-xl col-md-3 mb-4">
-                                <div class="card shadow">
-                                    <div  class="card-body" onclick="play_sound('{{ sound.get_id() }}');">
-                                        <div class="row no-gutters align-items-center">
-                                            <div class="h8 mb-0 font-weight-bold text-gray-800">{{ sound.get_name() }}</div>
+<!--                normal content-->
+                    <div class="container-fluid conxf">
+
+                        <!-- Page Heading -->
+                        <div class="py-4 d-sm-flex align-items-center justify-content-center mb-4">
+                            <h1 class="h3 mb-0 text-gray-800" >{{ cur_dir.get_name() }}</h1>
+                        </div>
+                        <div class="card-columns">
+                            {% for sound in cur_dir.get_sounds() %}
+                            <a>
+                                <div class="col-xl col-md-3 mb-4">
+                                    <div class="card shadow">
+                                        <div  class="card-body" onclick="play_sound('{{ sound.get_id() }}');">
+                                            <div class="row no-gutters align-items-center">
+                                                <div class="h8 mb-0 font-weight-bold text-gray-800">{{ sound.get_name() }}</div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </a>
-                        {% endfor %}
+                            </a>
+                            {% endfor %}
+                        </div>
                     </div>
-                </div>
-                <!-- /.container-fluid -->
+
+<!-- /.container-fluid -->
             </div>
             <!-- End of Main Content -->
 

@@ -1,3 +1,4 @@
+import difflib
 import os
 import subprocess
 
@@ -25,7 +26,7 @@ sound_directories = list()
 
 
 @app.route('/', methods=['POST', 'GET'])
-def index(current_name="main"):
+def index(current_name="main", search=""):
     for directory in sound_directories:
         if directory.get_name() == current_name.upper():
             current_directory = directory
@@ -88,6 +89,13 @@ def create_folder():
     if not os.path.exists(folder_path):
         os.system("mkdir " + folder_path)
 
+    return redirect(url_for('index'))
+
+
+@app.route('/read', methods=['POST'])
+def read():
+    os.system("gtts-cli {0} --lang fr --output {1}/output.mp3".format(request.form.get("text"), os.path.join(root_directory, UPLOAD_FOLDER, "main")))
+    os.system("vzp-sender main/output.mp3")
     return redirect(url_for('index'))
 
 

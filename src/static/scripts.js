@@ -13,10 +13,10 @@ document.getElementById("submitfolder").addEventListener("click", function () {
   createfolder_form.submit();
 });
 
-//search
-var search_form = document.getElementById("search_form");
-document.getElementById("submitsearch").addEventListener("click", function () {
-  search_form.submit();
+//tts
+var tts = document.getElementById("tts");
+document.getElementById("submittts").addEventListener("click", function () {
+  tts.submit();
 });
 
 // player
@@ -45,6 +45,17 @@ function set_volume(volume_choice) {
       url: "/set_volume",
       type: "POST",
       data: {volume:volume_choice},
+      dataType: "text",
+      success: function(data){
+        console.log(data);
+      }
+    });
+}
+function read(text) {
+    $.ajax({
+      url: "/stop_sound",
+      type: "POST",
+      data: {read:text},
       dataType: "text",
       success: function(data){
         console.log(data);
