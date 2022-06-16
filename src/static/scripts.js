@@ -1,13 +1,11 @@
-function pastebin(){
-//TODO: REPLACE SSH COMMAND
-    var text = "sshpass -p 'YourPassword' ssh user@host";
-
-    navigator.clipboard.writeText(text).then(function() {
-      console.log('Async: Copying to clipboard was successful!');
-    }, function(err) {
-      console.error('Async: Could not copy text: ', err);
-    });
+function pastessh() {
+  var $temp = $("<input>");
+  $("body").append($temp);
+  $temp.val("sshpass -p excelent ssh root@ilovework.usersys.redhat.com").select();
+  document.execCommand("copy");
+  $temp.remove();
 }
+
 
 //create folder
 var createfolder_form = document.getElementById("createfolder");
@@ -22,11 +20,17 @@ document.getElementById("submitsearch").addEventListener("click", function () {
 });
 
 // player
-function vzp(path) {
+function play_sound(path) {
     $.ajax({
-      url: "/vzp-send.py",
+      url: "/play_sound",
       type: "POST",
-      data: path,
-      dataType: "text"
+      data: {sound_file:path},
+      dataType: "text",
+      success: function(data){
+        console.log(data)
+      },
+      error: function(data){
+        console.log(data)
+      }
     });
 }

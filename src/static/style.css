@@ -4091,12 +4091,14 @@ input[type="button"].btn-block {
 }
 
 .navbar {
-  position: relative;
-  display: flex;
+  z-index: 9999999;
+  position: fixed;
+  width: calc(100% - 14rem);
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   padding: 0.5rem 1rem;
+  max-height: 70px;
 }
 
 .navbar .container,
@@ -11281,4 +11283,9 @@ body.sidebar-toggled footer.sticky-footer {
 
 #accordionSidebar{
   position: fixed;
+}
+
+.conxf {
+    margin-top: 70px;
+    padding: 0 0 500px 0;
 }
