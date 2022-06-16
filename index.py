@@ -1,6 +1,6 @@
 import os
 import subprocess
-
+import playsound
 from jinja2 import Environment, FileSystemLoader
 from flask import Flask, render_template, redirect, request, url_for, flash, jsonify
 from Sounds import Sound, SoundDirectory
@@ -45,12 +45,13 @@ def name(cur_name):
 
 @app.route('/play_sound', methods=['POST', 'GET'])
 def play_sound():
-    mp3_file = request.form.get("sound_file")
-
-    if os.path.exists(os.path.join(UPLOAD_FOLDER, mp3_file)):
-        os.system("vzp-sender {0}".format(mp3_file))
-
-    return jsonify("Playing {0}".format(mp3_file))
+    playsound.playsound(os.path.join(UPLOAD_FOLDER, request.form.get("sound_file")))
+#     mp3_file = request.form.get("sound_file")
+#
+#     if os.path.exists(os.path.join(UPLOAD_FOLDER, mp3_file)):
+#         os.system("vzp-sender {0}".format(mp3_file))
+#
+#     return jsonify("Playing {0}".format(mp3_file))
 
 
 @app.route('/stop_sound')
