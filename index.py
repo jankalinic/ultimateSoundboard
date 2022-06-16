@@ -1,6 +1,6 @@
 import os
 import subprocess
-import playsound
+
 from jinja2 import Environment, FileSystemLoader
 from flask import Flask, render_template, redirect, request, url_for, flash, jsonify
 from Sounds import Sound, SoundDirectory
@@ -45,7 +45,7 @@ def name(cur_name):
 
 @app.route('/play_sound', methods=['POST', 'GET'])
 def play_sound():
-    playsound.playsound(os.path.join(UPLOAD_FOLDER, request.form.get("sound_file")))
+    os.system("mpg123 -o pulse " + os.path.join(UPLOAD_FOLDER, request.form.get("sound_file")))
 #     mp3_file = request.form.get("sound_file")
 #
 #     if os.path.exists(os.path.join(UPLOAD_FOLDER, mp3_file)):
@@ -72,7 +72,7 @@ def opt_volume(opt_volume):
     else:
         return jsonify("Failed")
 
-    return  jsonify("Volume")
+    return jsonify("Volume")
 
 
 @app.route('/normalize', methods=['POST', 'GET'])
