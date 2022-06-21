@@ -54,7 +54,6 @@ def play_sound():
 @app.route('/stop_sound', methods=['POST', 'GET'])
 def stop_sound():
     # kill queue
-    os.system("for pid in $(ps -ef | awk '/vzp-send.py/ {print $2}'); do kill -9 $pid; done")
     os.system("for pid in $(ps -ef | awk '/vzp-send/ {print $2}'); do kill -9 $pid; done")
     os.system("for pid in $(ps -ef | awk '/mpg123/ {print $2}'); do kill -9 $pid; done")
     return "Stopped"
