@@ -55,6 +55,7 @@ def stop_sound():
     # kill queue
     os.system("for pid in $(ps -ef | awk '/vzp-sender.py/ {print $2}'); do kill -9 $pid; done")
     os.system("for pid in $(ps -ef | awk '/vzp-send/ {print $2}'); do kill -9 $pid; done")
+    os.system("for pid in $(ps -ef | awk '/mpg123/ {print $2}'); do kill -9 $pid; done")
     return "Stopped"
 
 
@@ -94,7 +95,7 @@ def create_folder():
 
 @app.route('/read', methods=['POST'])
 def read():
-    os.system("gtts-cli {0} --lang fr --output {1}/output.mp3".format(request.form.get("text"), os.path.join(root_directory, UPLOAD_FOLDER, "main")))
+    os.system("gtts-cli {0} --lang en --tld co.in --output {1}/output.mp3".format(request.form.get("text"), os.path.join(root_directory, UPLOAD_FOLDER, "main")))
     os.system("vzp-sender main/output.mp3")
     return redirect(url_for('index'))
 
