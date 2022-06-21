@@ -68,15 +68,22 @@
                         <i class="fa fa-bars"></i>
                     </button>
 
-                    <!-- Topbar Search -->
+                    <!-- Topbar Text to speech -->
                     <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" id="tts" action="/read" method="post">
                         <div class="input-group">
                             <input type="text" class="form-control bg-light border-0 small" placeholder="Text to speech..." name="text">
                             <div class="input-group-append" id="submittts">
                                 <button class="btn btn-primary" type="button">
-                                    <i class="fa-brands fa-speakap" "></i>
+                                    <i class="fa-brands fa-speakap"></i>
                                 </button>
                             </div>
+                        </div>
+                    </form>
+
+                    <!-- Topbar Search -->
+                    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                        <div class="input-group">
+                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search Filter..." id="search_input" onkeyup="search_filter();">
                         </div>
                     </form>
 
@@ -118,14 +125,14 @@
                         <div class="py-4 d-sm-flex align-items-center justify-content-center mb-4">
                             <h1 class="h3 mb-0 text-gray-800" >{{ cur_dir.get_name() }}</h1>
                         </div>
-                        <div class="card-columns">
+                        <div class="card-columns" id="search_area">
                             {% for sound in cur_dir.get_sounds() %}
-                            <a>
+                            <a class="search_card_name">
                                 <div class="col-xl col-md-3 mb-4">
                                     <div class="card shadow">
                                         <div  class="card-body" onclick="play_sound('{{ sound.get_id() }}');">
                                             <div class="row no-gutters align-items-center">
-                                                <div class="h8 mb-0 font-weight-bold text-gray-800">{{ sound.get_name() }}</div>
+                                                <div class="h8 mb-0 font-weight-bold text-gray-800 search_sound_name">{{ sound.get_name() }}</div>
                                             </div>
                                         </div>
                                     </div>
