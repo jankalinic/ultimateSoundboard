@@ -95,8 +95,9 @@ def create_folder():
 
 @app.route('/read', methods=['POST'])
 def read():
-    os.system("gtts-cli {0} --lang en --tld co.in --output {1}/tts_output.mp3".format(request.form.get("text"), os.path.join(root_directory, UPLOAD_FOLDER, "main")))
-    os.system("vzp-sender {0}/tts_output.mp3")
+    file = os.path.join(root_directory, UPLOAD_FOLDER, "main", "tts_output.mp3")
+    os.system("gtts-cli {0} --lang en --tld co.in --output {1}".format(request.form.get("text"), file))
+    os.system("vzp-sender {0}".format(file))
     return redirect(url_for('index'))
 
 
