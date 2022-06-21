@@ -11289,3 +11289,6 @@ body.sidebar-toggled footer.sticky-footer {
     margin-top: 70px;
     padding: 0 0 500px 0;
 }
+a :hover{
+    cursor: pointer;
+}
