@@ -1,0 +1,23 @@
+#! /usr/bin/env python3
+
+import daemon
+import os
+
+from proton.handlers import MessagingHandler
+from proton.reactor import Container
+
+
+class VZPListener(MessagingHandler):
+    def __init__(self):
+        super(VZPListener, self).__init__()
+
+    def on_start(self, event):
+        self.acceptor = event.container.listen("0.0.0.0:5678")
+
+    def on_message(self, event):
+        if os.path.exists(event.message.body):
+            os.system("mpg123 -a hw:0,0 {0}".format(event.message.body))
+
+
+with daemon.DaemonContext():
+    Container(VZPListener()).run()

@@ -47,14 +47,14 @@ def name(cur_name):
 @app.route('/play_sound', methods=['POST', 'GET'])
 def play_sound():
     file_to_play = os.path.join(root_directory, UPLOAD_FOLDER, request.form.get("sound_file"))
-    os.system("vzp-sender {0}".format(file_to_play))
+    os.system("{0}/vzp-send {1}".format(root_directory, file_to_play))
     return "Playing"
 
 
 @app.route('/stop_sound', methods=['POST', 'GET'])
 def stop_sound():
     # kill queue
-    os.system("for pid in $(ps -ef | awk '/vzp-sender.py/ {print $2}'); do kill -9 $pid; done")
+    os.system("for pid in $(ps -ef | awk '/vzp-send.py/ {print $2}'); do kill -9 $pid; done")
     os.system("for pid in $(ps -ef | awk '/vzp-send/ {print $2}'); do kill -9 $pid; done")
     os.system("for pid in $(ps -ef | awk '/mpg123/ {print $2}'); do kill -9 $pid; done")
     return "Stopped"
@@ -98,7 +98,7 @@ def create_folder():
 def read():
     file = os.path.join(root_directory, UPLOAD_FOLDER, "main", "tts_output.mp3")
     os.system("gtts-cli {0} --lang en --output {1}".format(request.form.get("text"), file))
-    os.system("vzp-sender {0}".format(file))
+    os.system("vzp-send.py {0}".format(file))
     return redirect(url_for('index'))
 
 
