@@ -1,0 +1,7 @@
+#!/usr/bin/env python
+import daemon
+import index
+
+
+with daemon.DaemonContext():
+    index.run()

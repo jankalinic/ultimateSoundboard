@@ -1,7 +1,6 @@
 import difflib
 import os
 import subprocess
-
 from jinja2 import Environment, FileSystemLoader
 from flask import Flask, render_template, redirect, request, url_for
 from Sounds import Sound, SoundDirectory
@@ -81,6 +80,7 @@ def upload_file():
         f = request.files['file']
         f.save(os.path.join(root_directory, UPLOAD_FOLDER, request.form.get("folder"), f.filename))
 
+    load()
     return redirect(url_for('index'))
 
 
@@ -97,7 +97,7 @@ def create_folder():
 def read():
     file = os.path.join(root_directory, UPLOAD_FOLDER, "main", "tts_output.mp3")
     os.system("gtts-cli {0} --lang en --output {1}".format(request.form.get("text"), file))
-    os.system("vzp-send.py {0}".format(file))
+    os.system("{0}/vzp-send {1}".format(root_directory, file))
     return redirect(url_for('index'))
 
 
@@ -108,6 +108,10 @@ def load():
         sound_directories.append(SoundDirectory(sound_dir_single, os.path.join(UPLOAD_FOLDER, sound_dir_single)))
 
 
-if __name__ == '__main__':
+def run():
     load()
     app.run(host="0.0.0.0", port=80, debug=True)
+
+
+if __name__ == '__main__':
+    run()
