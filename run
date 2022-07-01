@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import daemon
-import index
+from index import run
 
-
-with daemon.DaemonContext():
-    index.run()
+if __name__ == '__main__':
+    with daemon.DaemonContext():
+        run()
