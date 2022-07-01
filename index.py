@@ -90,6 +90,7 @@ def create_folder():
     if not os.path.exists(folder_path):
         os.system("mkdir " + folder_path)
 
+    load()
     return redirect(url_for('index'))
 
 
@@ -98,6 +99,7 @@ def read():
     file = os.path.join(root_directory, UPLOAD_FOLDER, "main", "tts_output.mp3")
     os.system("gtts-cli {0} --lang en --output {1}".format(request.form.get("text"), file))
     os.system("{0}/vzp-send {1}".format(root_directory, file))
+    load()
     return redirect(url_for('index'))
 
 
