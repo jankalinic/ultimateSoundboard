@@ -110,6 +110,8 @@ def read():
 
 
 def load():
+    global sound_directories
+    sound_directories = list()
     sound_dir_list = sorted([nm for nm in os.listdir(UPLOAD_FOLDER) if os.path.isdir(os.path.join(UPLOAD_FOLDER, nm))])
 
     for sound_dir_single in sound_dir_list:
@@ -117,7 +119,6 @@ def load():
 
 
 def run():
-    load()
     app.run(host="0.0.0.0", port=80, debug=True)
 
 
