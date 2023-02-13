@@ -2,6 +2,7 @@ import difflib
 import os
 import subprocess
 import time
+from pathlib import Path
 
 from jinja2 import Environment, FileSystemLoader
 from flask import Flask, render_template, redirect, request, url_for
@@ -13,8 +14,10 @@ root_directory = os.path.dirname(os.path.abspath(__file__))
 templates_dir = os.path.join(root_directory, 'src')
 env = Environment(loader=FileSystemLoader(templates_dir))
 template = env.get_template('index.html')
+search_template = env.get_template('search.html')
+
 # Upload folder
-UPLOAD_FOLDER = os.path.join(root_directory, 'media')  # TODO: zmenit "/var/www/html/"
+UPLOAD_FOLDER = os.path.join(root_directory, 'media')
 
 # FLASK VARS
 app = Flask("vzp", template_folder=templates_dir)
@@ -27,7 +30,7 @@ sound_directories = list()
 
 
 @app.route('/', methods=['POST', 'GET'])
-def index(current_name="main", search=""):
+def index(current_name="main"):
     load()
 
     for directory in sound_directories:
@@ -107,6 +110,27 @@ def read():
     os.system("{0}/vzp-send {1}".format(root_directory, file))
     load()
     return redirect(url_for('index'))
+
+
+@app.route('/search', methods=['POST'])
+def search():
+    search_term = request.form.get("search_term")
+    sound_list = list()
+    folders_list = [x[0] for x in os.walk(UPLOAD_FOLDER)]
+    folders_list.pop(0)
+
+    for folder in folders_list:
+        files_in_folder = [x[2] for x in os.walk(folder)][0]
+        for file in files_in_folder:
+            if search_term in file:
+                sound_list.append(Sound(name=file, dir_id=folder.split("/")[-1], path=os.path.join(folder, file)))
+
+    return render_template(search_template,
+                           directories=sound_directories,
+                           search_term=search_term,
+                           sounds=sound_list,
+                           style_css=url_for('static', filename='style.css'),
+                           scripts_js=url_for('static', filename='scripts.js'))
 
 
 def load():

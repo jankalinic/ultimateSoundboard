@@ -17,8 +17,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ style_css }}">
     <!-- Custom styles for this template-->
-<!--    TODO: REPLACE-->
-
 </head>
 
 <body id="page-top">
@@ -52,7 +50,7 @@
             {% endfor %}
 
         </ul>
-        <!-- End of Sidebar -->
+<!-- End of Sidebar -->
 
 <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
@@ -65,15 +63,15 @@
 
                     <!-- Sidebar Toggle (Topbar) -->
                     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                        <i class="fa-solid fa-bars"></i>
+                        <i class="fa fa-bars"></i>
                     </button>
 
                     <!-- Topbar Search -->
-                    <form id="search_form" class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" action="/search" method="POST">
+                    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" >
                         <div class="input-group">
-                            <input type="text" class="form-control bg-light border-0 small" name="search_term">
-                            <button id="search_button" class="btn btn-link rounded-circle mr-3" >
-                                <i class="fa-solid fa-magnifying-glass"></i>
+                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search Filter..." id="search_input">
+                            <button id="searchButton" class="btn btn-link d-md-none rounded-circle mr-3" onclick="search_sounds()">
+                                <i class="fa fa-magnifying-glass"></i>
                             </button>
                         </div>
                     </form>
@@ -114,10 +112,10 @@
 
                         <!-- Page Heading -->
                         <div class="py-4 d-sm-flex align-items-center justify-content-center mb-4">
-                            <h1 class="h3 mb-0 text-gray-800" >{{ cur_dir.get_name() }}</h1>
+                            <h1 class="h3 mb-0 text-gray-800" >Search {{ search_term }}</h1>
                         </div>
                         <div class="card-columns" id="search_area">
-                            {% for sound in cur_dir.get_sounds() %}
+                            {% for sound in sounds %}
                             <a class="search_card_name">
                                 <div class="col-xl col-md-3 mb-4">
                                     <div class="card shadow">
@@ -136,41 +134,6 @@
 <!-- /.container-fluid -->
             </div>
             <!-- End of Main Content -->
-
-<!-- Footer -->
-            <footer class="sticky-footer bg-dark">
-                 <!-- Area Chart -->
-                        <div class="col-xl-12 col-lg-12">
-                            <div class="card shadow mb-4">
-                                <!-- Card Header - Dropdown -->
-                                <div
-                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Upload Drag & drop</h6>
-                                    <form action="/create_folder" method="POST" id="createfolder">
-
-                                        <input type="text" placeholder="pridat slozku" name="folder_name">
-                                        <a id="submitfolder" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm"><i class="fa-solid fa-folder-plus"></i></a>
-                                    </form>
-                                </div>
-                                <!-- Card Body -->
-                                <form action="/upload" method="POST" class="card-body row"  enctype="multipart/form-data" >
-                                    <select id="slozky" name="folder" class=" col-xl col-md-3 mx-2 d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-                                        {% for directory in directories %}
-                                            <option value="{{ directory.get_id() }}">{{ directory.get_name() }}</option>
-                                        {% endfor %}
-                                    </select>
-                                    <input type="file" name="file"  class="col-xl col-md-5 mx-2 d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" accept=".mp3"/>
-                                    <input type="submit" value="Nahrat" class="col-xl col-md-3 d-none d-sm-inline-block btn btn-sm btn-success shadow-sm"/>
-                                </form>
-                            </div>
-                        </div>
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright Lou Briccant & Anna Bortion</span>
-                    </div>
-                </div>
-            </footer>
-            <!-- End of Footer -->
 
         </div>
         <!-- End of Content Wrapper -->

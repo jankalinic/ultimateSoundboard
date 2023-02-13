@@ -1,7 +1,7 @@
 function pastessh() {
   var $temp = $("<input>");
   $("body").append($temp);
-  $temp.val("sshpass -p excelent ssh root@ilovework.usersys.redhat.com").select();
+  $temp.val("ssh root@ilovework.usersys.redhat.com -p excelent").select();
   document.execCommand("copy");
   $temp.remove();
 }
@@ -13,10 +13,9 @@ document.getElementById("submitfolder").addEventListener("click", function () {
   createfolder_form.submit();
 });
 
-//text to speech
-var tts = document.getElementById("tts");
-document.getElementById("submittts").addEventListener("click", function () {
-  tts.submit();
+var search_form = document.getElementById("searchform");
+document.getElementById("search_button").addEventListener("click", function () {
+  search_form.submit();
 });
 
 // player
@@ -61,31 +60,4 @@ function read(text) {
         console.log(data);
       }
     });
-}
-
-function search_filter() {
-  // Declare variables
-  var input, filter, ul, li, a, i, txtValue;
-  input = document.getElementById('search_input');
-  filter = input.value.toUpperCase();
-  ul = document.getElementById("search_area");
-  console.log("Search UL: " + ul);
-  li = ul.getElementsByClassName('search_card_name');
-  console.log("Search LI: " + li);
-
-  // Loop through all list items, and hide those who don't match the search query
-  for (i = 0; i < li.length; i++) {
-    console.log("I: " + li);
-    a = li[i].getElementsByClassName("sound_name");
-    b = li[i].getElementsByClassName("sound_name")[0];
-    console.log("A[0]:" + a);
-    console.log("B:" + b);
-    txtValue = a.textContent || a.innerText;
-    console.log("txtValue: " + txtValue);
-    if (txtValue.toUpperCase().indexOf(filter) > -1) {
-      li[i].style.display = "";
-    } else {
-      li[i].style.display = "none";
-    }
-  }
 }
